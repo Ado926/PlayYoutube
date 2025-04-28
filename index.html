@@ -3,88 +3,173 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PlayYoutube By Wirk 👻</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>PlayYoutube By Wirk 👻 - Disfruta</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <style>
-    /* Reset básico */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* Estilos Generales */
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f0f2f5;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #e7f9f0;
+      color: #222;
     }
-    .header {
-      background-color: #25D366;
-      color: white;
-      padding: 12px 20px;
+
+    header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 12px 20px;
+      background-color: #25D366;
+      color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
+
     .logo {
-      font-size: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+
     .menu-button {
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Menú lateral */
+    #side-menu {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 250px;
+      height: 100%;
+      background-color: white;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: left 0.3s ease;
+      z-index: 999;
+    }
+
+    #side-menu.open {
+      left: 0;
+    }
+
+    #close-menu {
       background: none;
       border: none;
       font-size: 24px;
-      color: white;
+      align-self: flex-end;
       cursor: pointer;
+      color: #25D366;
+    }
+
+    #side-menu h2 {
+      margin-top: 0;
+      color: #25D366;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    #side-menu button {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      background-color: white;
+      color: #25D366;
+      border: 2px solid #25D366;
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      width: 100%;
+    }
+
+    #side-menu button:hover {
+      background-color: #25D366;
+      color: white;
     }
 
     .container {
       padding: 20px;
-      flex: 1;
+      text-align: center;
     }
 
-    #search-form {
+    form {
       display: flex;
+      justify-content: center;
       gap: 10px;
       margin-bottom: 20px;
     }
 
-    #search-input {
-      flex: 1;
+    input[type="text"] {
+      width: 250px;
       padding: 10px;
-      font-size: 16px;
       border: 2px solid #25D366;
-      border-radius: 8px;
+      border-radius: 6px;
+      outline: none;
     }
 
-    #search-form button {
-      padding: 10px 20px;
-      font-size: 16px;
+    button[type="submit"] {
       background-color: #25D366;
-      color: white;
       border: none;
-      border-radius: 8px;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
       cursor: pointer;
+      font-weight: bold;
       transition: background 0.3s;
     }
 
-    #search-form button:hover {
-      background-color: #128C7E;
+    button[type="submit"]:hover {
+      background-color: #20b75b;
     }
 
+    /* Loader */
+    .loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+      gap: 4px;
+    }
+
+    .loader span {
+      width: 8px;
+      height: 8px;
+      background: #25D366;
+      border-radius: 50%;
+      animation: bounce 1.4s infinite both;
+    }
+
+    .loader span:nth-child(2) { animation-delay: 0.2s; }
+    .loader span:nth-child(3) { animation-delay: 0.4s; }
+    .loader span:nth-child(4) { animation-delay: 0.6s; }
+    .loader span:nth-child(5) { animation-delay: 0.8s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
+    /* Lista de música */
     .music-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-    }
-
-    #loading-message {
-      text-align: center;
+      gap: 15px;
       margin-top: 20px;
-      color: #333;
     }
 
+    /* Reproductor */
     #audio-player {
       display: none;
       position: fixed;
@@ -92,99 +177,26 @@
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
-      max-width: 500px;
+      max-width: 400px;
       background-color: #222;
       padding: 10px;
       border-top-left-radius: 12px;
       border-top-right-radius: 12px;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.5);
       z-index: 1000;
-    }
-
-    /* Menú lateral pequeño y elegante */
-    #side-menu {
-      position: fixed;
-      top: 0;
-      right: -220px;
-      width: 220px;
-      height: 100%;
-      background-color: #25D366;
-      padding: 20px 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      transition: right 0.3s ease;
-      z-index: 1001;
-    }
-    #side-menu.open {
-      right: 0;
-    }
-    #close-menu {
-      align-self: flex-end;
-      background: none;
-      border: none;
-      font-size: 20px;
-      color: white;
-      cursor: pointer;
-    }
-    #side-menu h2 {
-      font-size: 18px;
-      color: white;
-      margin-bottom: 10px;
-    }
-    #side-menu button {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background-color: white;
-      color: #25D366;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 10px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    #side-menu button:hover {
-      background-color: #d4f5e7;
-    }
-    #side-menu button i {
-      font-size: 16px;
-    }
-
-    /* Loader sencillo */
-    .loader {
-      display: flex;
-      justify-content: center;
-      margin-top: 10px;
-    }
-    .loader span {
-      width: 8px;
-      height: 8px;
-      margin: 0 4px;
-      background: #25D366;
-      border-radius: 50%;
-      animation: bounce 1.2s infinite alternate;
-    }
-    .loader span:nth-child(2) { animation-delay: 0.2s; }
-    .loader span:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes bounce {
-      from { transform: translateY(0); }
-      to { transform: translateY(-10px); }
     }
   </style>
 </head>
-<body>
 
+<body>
   <!-- Menú lateral -->
   <div id="side-menu">
     <button id="close-menu">✖</button>
+    
     <h2>Información</h2>
 
     <button onclick="window.open('https://wa.me/50493732693', '_blank')">
-      <i class="fab fa-whatsapp"></i> Owner
+      <i class="fab fa-whatsapp"></i> Contactar Creador
     </button>
 
     <button onclick="window.open('https://whatsapp.com/channel/0029Vb5UfTC4CrfeKSamhp1f', '_blank')">
@@ -193,42 +205,40 @@
   </div>
 
   <!-- Encabezado -->
-  <header class="header">
+  <header>
     <h1 class="logo">
-      <i class="fas fa-music"></i> PlayYoutube By Wirk
+      <i class="fas fa-music"></i> PlayYoutube By Wirk 👻
     </h1>
     <button id="menu-button" class="menu-button">☰</button>
   </header>
 
-  <!-- Contenido -->
+  <!-- Contenido principal -->
   <div class="container">
     <form id="search-form">
-      <input type="text" id="search-input" placeholder="Buscar canciones o artistas..." required />
+      <input type="text" id="search-input" placeholder="Buscar canciones o artistas 🌻" required />
       <button type="submit">Buscar</button>
     </form>
 
     <div id="loading-message" style="display: none;">
       <div class="loader">
-        <span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
       </div>
       <p id="loading-text">Buscando música...</p>
     </div>
 
     <div class="music-list" id="music-list">
-      <!-- Aquí se insertan canciones -->
+      <!-- Aquí aparecerán las canciones -->
     </div>
   </div>
 
-  <!-- Reproductor de audio -->
+  <!-- Reproductor de música -->
   <audio id="audio-player" controls></audio>
 
-  <script src="api.js"></script>
   <script>
     const menuBtn = document.getElementById("menu-button");
     const closeBtn = document.getElementById("close-menu");
     const sideMenu = document.getElementById("side-menu");
-    const audioPlayer = document.getElementById('audio-player');
-    const loadingText = document.getElementById('loading-text');
+    const audioPlayer = document.getElementById("audio-player");
 
     menuBtn.onclick = () => sideMenu.classList.add("open");
     closeBtn.onclick = () => sideMenu.classList.remove("open");
@@ -243,13 +253,14 @@
       audioPlayer.style.display = "none";
     });
 
-    // Animación de "Buscando música..."
+    // Animación de puntos al cargar
+    const loadingText = document.getElementById('loading-text');
     let dotCount = 0;
     setInterval(() => {
       dotCount = (dotCount + 1) % 4;
-      loadingText.textContent = `Buscando música${'.'.repeat(dotCount)}`;
+      let dots = '.'.repeat(dotCount);
+      loadingText.textContent = `Buscando música${dots}`;
     }, 500);
   </script>
-
 </body>
 </html>
