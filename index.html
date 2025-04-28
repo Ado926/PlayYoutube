@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PlayYoutube By Wirk 👻 - Disfruta</title>
+  <title>PlayYoutube By Wirk 👻</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <style>
-    /* Estilos Generales */
+    /* Estilos generales */
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -40,21 +40,19 @@
       cursor: pointer;
     }
 
-    /* Menú lateral */
     #side-menu {
       position: fixed;
       top: 0;
-      left: -280px;
-      width: 250px;
+      left: -250px;
+      width: 220px;
       height: 100%;
       background-color: white;
-      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 2px 0 8px rgba(0,0,0,0.2);
       padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      transition: left 0.3s ease;
-      z-index: 999;
+      transition: 0.3s ease;
+      z-index: 1000;
     }
 
     #side-menu.open {
@@ -71,27 +69,22 @@
     }
 
     #side-menu h2 {
-      margin-top: 0;
+      margin-top: 10px;
+      font-size: 18px;
       color: #25D366;
-      font-size: 20px;
       text-align: center;
     }
 
     #side-menu button {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 8px;
-      background-color: white;
-      color: #25D366;
-      border: 2px solid #25D366;
-      border-radius: 6px;
+      margin-top: 15px;
       padding: 10px;
-      font-size: 14px;
+      background-color: white;
+      border: 2px solid #25D366;
+      color: #25D366;
       font-weight: bold;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-      width: 100%;
+      transition: 0.3s;
     }
 
     #side-menu button:hover {
@@ -127,140 +120,143 @@
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.3s;
+      transition: 0.3s;
     }
 
     button[type="submit"]:hover {
       background-color: #20b75b;
     }
 
-    /* Loader */
-    .loader {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 20px 0;
-      gap: 4px;
-    }
-
-    .loader span {
-      width: 8px;
-      height: 8px;
-      background: #25D366;
-      border-radius: 50%;
-      animation: bounce 1.4s infinite both;
-    }
-
-    .loader span:nth-child(2) { animation-delay: 0.2s; }
-    .loader span:nth-child(3) { animation-delay: 0.4s; }
-    .loader span:nth-child(4) { animation-delay: 0.6s; }
-    .loader span:nth-child(5) { animation-delay: 0.8s; }
-
-    @keyframes bounce {
-      0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1); }
-    }
-
-    /* Lista de música */
-    .music-list {
+    .results {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 15px;
       margin-top: 20px;
     }
 
-    /* Reproductor */
-    #audio-player {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
+    .result-item {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 90%;
       max-width: 400px;
-      background-color: #222;
-      padding: 10px;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.5);
-      z-index: 1000;
+      text-align: left;
+    }
+
+    .result-item h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .result-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .result-buttons button {
+      flex: 1;
+      padding: 8px;
+      background: #25D366;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .result-buttons button:hover {
+      background: #20b75b;
     }
   </style>
 </head>
 
 <body>
-  <!-- Menú lateral -->
-  <div id="side-menu">
-    <button id="close-menu">✖</button>
-    
-    <h2>Información</h2>
 
-    <button onclick="window.open('https://wa.me/50493732693', '_blank')">
-      <i class="fab fa-whatsapp"></i> Owner 👾
-    </button>
-
-    <button onclick="window.open('https://whatsapp.com/channel/0029Vb5UfTC4CrfeKSamhp1f', '_blank')">
-      <i class="fas fa-bullhorn"></i> Canal Ofc
-    </button>
+<header>
+  <div class="logo">
+    <i class="fas fa-music"></i> PlayYoutube
   </div>
+  <button class="menu-button" onclick="openMenu()"><i class="fas fa-bars"></i></button>
+</header>
 
-  <!-- Encabezado -->
-  <header>
-    <h1 class="logo">
-      <i class="fas fa-music"></i> PlayYoutube By Wirk 👻
-    </h1>
-    <button id="menu-button" class="menu-button">☰</button>
-  </header>
+<nav id="side-menu">
+  <button id="close-menu" onclick="closeMenu()"><i class="fas fa-times"></i></button>
+  <h2>Información</h2>
+  <button onclick="window.open('https://youtube.com/@tu-canal', '_blank')">Canal Oficial</button>
+  <button onclick="window.open('https://wa.me/50493732693', '_blank')">Creador</button>
+</nav>
 
-  <!-- Contenido principal -->
-  <div class="container">
-    <form id="search-form">
-      <input type="text" id="search-input" placeholder="Buscar canciones o artistas 🌻" required />
-      <button type="submit">Buscar</button>
-    </form>
+<div class="container">
+  <form id="search-form">
+    <input type="text" id="search-input" placeholder="¿Qué quieres buscar?" required>
+    <button type="submit">Buscar</button>
+  </form>
 
-    <div id="loading-message" style="display: none;">
-      <div class="loader">
-        <span></span><span></span><span></span><span></span><span></span>
-      </div>
-      <p id="loading-text">Buscando música...</p>
-    </div>
+  <div id="results" class="results"></div>
+</div>
 
-    <div class="music-list" id="music-list">
-      <!-- Aquí aparecerán las canciones -->
-    </div>
-  </div>
+<script>
+  function openMenu() {
+    document.getElementById('side-menu').classList.add('open');
+  }
 
-  <!-- Reproductor de música -->
-  <audio id="audio-player" controls></audio>
+  function closeMenu() {
+    document.getElementById('side-menu').classList.remove('open');
+  }
 
-  <script>
-    const menuBtn = document.getElementById("menu-button");
-    const closeBtn = document.getElementById("close-menu");
-    const sideMenu = document.getElementById("side-menu");
-    const audioPlayer = document.getElementById("audio-player");
+  document.getElementById('search-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const query = document.getElementById('search-input').value.trim();
+    if (!query) return;
 
-    menuBtn.onclick = () => sideMenu.classList.add("open");
-    closeBtn.onclick = () => sideMenu.classList.remove("open");
+    const resultsContainer = document.getElementById('results');
+    resultsContainer.innerHTML = '<p>Buscando resultados...</p>';
 
-    function reproducirCancion(url) {
-      audioPlayer.src = url;
-      audioPlayer.style.display = "block";
-      audioPlayer.play();
+    try {
+      const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+      const data = await response.json();
+
+      if (data.results.length === 0) {
+        resultsContainer.innerHTML = '<p>No se encontraron resultados.</p>';
+        return;
+      }
+
+      resultsContainer.innerHTML = '';
+
+      data.results.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'result-item';
+
+        div.innerHTML = `
+          <h4>${item.title}</h4>
+          <div class="result-buttons">
+            <button onclick="reproducirAudio('${item.audioUrl}')">▶ Reproducir Audio</button>
+            <button onclick="descargarVideo('${item.videoUrl}')">⬇ Descargar Video</button>
+          </div>
+        `;
+
+        resultsContainer.appendChild(div);
+      });
+
+    } catch (err) {
+      console.error(err);
+      resultsContainer.innerHTML = '<p>Error al buscar resultados.</p>';
     }
+  });
 
-    audioPlayer.addEventListener("ended", () => {
-      audioPlayer.style.display = "none";
-    });
+  function reproducirAudio(url) {
+    window.open(url, '_blank');
+  }
 
-    // Animación de puntos al cargar
-    const loadingText = document.getElementById('loading-text');
-    let dotCount = 0;
-    setInterval(() => {
-      dotCount = (dotCount + 1) % 4;
-      let dots = '.'.repeat(dotCount);
-      loadingText.textContent = `Buscando música${dots}`;
-    }, 500);
-  </script>
+  function descargarVideo(url) {
+    window.open(url, '_blank');
+  }
+</script>
+
 </body>
 </html>
