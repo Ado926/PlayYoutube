@@ -26,43 +26,15 @@
       z-index: 1000;
     }
 
-    /* Estilos para el menú lateral */
-    .side-menu {
-      position: fixed;
-      top: 0;
-      left: -260px;
-      width: 250px;
-      height: 100%;
-      background-color: #1b8e5a; /* Verde oscuro */
-      padding: 20px;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
-      transition: left 0.3s ease;
-      z-index: 9999;
-      overflow-y: auto;
-    }
-
-    .side-menu.open {
-      left: 0;
-    }
-
-    /* Estilos del botón de cerrar */
-    .close-button {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      margin-bottom: 20px;
-      color: white;
-    }
-
     /* Estilos del header */
     .header {
       background-color: #1b8e5a;
       color: white;
       padding: 15px 20px;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
+      gap: 5px;
     }
 
     .logo {
@@ -73,12 +45,11 @@
       gap: 10px;
     }
 
-    .menu-button {
-      background: none;
-      border: none;
-      font-size: 30px;
-      cursor: pointer;
-      color: white;
+    .creator-info {
+      font-size: 14px;
+      font-weight: normal;
+      margin-top: 5px;
+      color: #d4f8df;
     }
 
     /* Estilos del contenedor principal */
@@ -137,28 +108,13 @@
 
 <body>
 
-  <div id="side-menu" class="side-menu">
-    <button id="close-menu" class="close-button">✖</button>
-    <h2 style="color: white;">Info de Contacto</h2>
-
-    <button onclick="window.location.href='https://wa.me/50433191934'"
-      style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; background-color: #25D366; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 10px;">
-      <i class="fab fa-whatsapp" style="font-size: 20px;"></i>
-      Contacta al Creador
-    </button>
-
-    <button onclick="window.location.href='https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m'"
-      style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; background-color: #25D366; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
-      <i class="fas fa-bullhorn" style="font-size: 20px;"></i>
-      Únete al Canal Oficial
-    </button>
-  </div>
-
   <header class="header">
-    <h1 class="logo">
+    <div class="logo">
       <i class="fas fa-music"></i> PlayYoutube By Wirk 👻
-    </h1>
-    <button id="menu-button" class="menu-button">☰</button>
+    </div>
+    <div class="creator-info">
+      Creador: +504 9373-2693
+    </div>
   </header>
 
   <div class="container">
@@ -182,18 +138,7 @@
 
   <script src="api.js"></script>
   <script>
-    const menuBtn = document.getElementById("menu-button");
-    const closeBtn = document.getElementById("close-menu");
-    const sideMenu = document.getElementById("side-menu");
     const audioPlayer = document.getElementById("audio-player");
-
-    menuBtn.onclick = () => {
-      sideMenu.classList.add("open");
-    };
-
-    closeBtn.onclick = () => {
-      sideMenu.classList.remove("open");
-    };
 
     function reproducirCancion(url) {
       audioPlayer.src = url;
