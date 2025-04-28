@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PlayYoutube By Wirk 👻</title> <link rel="stylesheet" href="styles.css" />
+  <title>PlayYoutube By Wirk 👻</title>
+  <link rel="stylesheet" href="styles.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <style>
     /* Estilos para el reproductor de audio fijo */
@@ -28,18 +29,27 @@
       /* Mantener estilos del cargador si son complejos,
          o ajustar colores si son CSS variables en styles.css */
     }
+
+    /* Añadido: Estilo para cambiar el color del icono del menú a verde si estuviera rojo en styles.css */
+    /* Si el icono del menú está definido en styles.css con un color rojo, necesitas cambiarlo allí. */
+    /* Como alternativa, si es solo el texto/icono dentro del botón, podrías intentar añadir una clase o estilo inline */
+    /* Si el botón #menu-button en styles.css tiene un background-color rojo, cámbialo también allí. */
+
   </style>
 </head>
 <body>
   <div id="side-menu" class="side-menu">
-  <button id="close-menu" class="close-button">✖</button>
-  <h2>Info de Contacto</h2> <button onclick="window.location.href='https://wa.me/50433191934'" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; background-color: #25D366; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 10px;">
+  <button id="close-menu" class="close-button" style="color: green;">✖</button>
+  <h2>Info de Contacto</h2>
+  <button onclick="window.location.href='https://wa.me/50433191934'" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; background-color: #25D366; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 10px;">
     <i class="fab fa-whatsapp" style="font-size: 20px;"></i>
     Contacta al Creador
-  </button>  <button onclick="window.location.href='https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m'" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; background-color: #25D366; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
+  </button>
+  <button onclick="window.location.href='https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m'" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; background-color: #25D366; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
     <i class="fas fa-bullhorn" style="font-size: 20px;"></i>
     Únete al Canal Oficial
-  </button> </div>
+  </button>
+  </div>
 
 <header class="header">
   <h1 class="logo">
@@ -49,7 +59,8 @@
 
 <div class="container">
   <form id="search-form">
-    <input type="text" id="search-input" placeholder=" ¡Busca tu música favorita ahora! 🎧" required /> <button type="submit">Buscar</button>
+    <input type="text" id="search-input" placeholder=" ¡Busca tu música favorita ahora! 🎧" required />
+    <button type="submit">Buscar</button>
   </form>
 
   <div id="loading-message" style="display: none;">
@@ -57,7 +68,8 @@
       <span></span><span></span><span></span><span></span><span></span><span></span>
       <span></span><span></span><span></span><span></span><span></span><span></span>
     </div>
-    <p id="loading-text">Buscando la canción perfecta...</p> </div>
+    <p id="loading-text">Buscando la canción perfecta...</p>
+  </div>
 
   <div class="music-list" id="music-list">
     </div>
@@ -72,6 +84,8 @@
   const sideMenu = document.getElementById("side-menu");
   const audioPlayer = document.getElementById("audio-player"); // Asegúrate de obtener el reproductor
 
+  // La visibilidad del menú lateral y sus contenidos depende de los estilos en styles.css
+  // para las clases .side-menu y .side-menu.open
   menuBtn.onclick = () => sideMenu.classList.add("open");
   closeBtn.onclick = () => sideMenu.classList.remove("open");
 
