@@ -3,260 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PlayYoutube By Wirk 👻</title>
+  <title>PlayYoutube By Wirk 👻</title> <link rel="stylesheet" href="styles.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <style>
-    /* Estilos generales */
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #e7f9f0;
-      color: #222;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      background-color: #25D366;
-      color: white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-
-    .logo {
-      font-size: 22px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .menu-button {
-      font-size: 24px;
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-    }
-
-    #side-menu {
+    /* Estilos para el reproductor de audio fijo */
+    #audio-player {
+      display: none;
       position: fixed;
-      top: 0;
-      left: -250px;
-      width: 220px;
-      height: 100%;
-      background-color: white;
-      box-shadow: 2px 0 8px rgba(0,0,0,0.2);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      transition: 0.3s ease;
-      z-index: 1000;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 800px; /* Ajusta el ancho máximo según necesites */
+      background-color: #222; /* Fondo oscuro para contraste */
+      padding: 12px;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+      z-index: 1000; /* Asegura que esté por encima de otros elementos */
     }
 
-    #side-menu.open {
-      left: 0;
-    }
-
-    #close-menu {
-      background: none;
-      border: none;
-      font-size: 24px;
-      align-self: flex-end;
-      cursor: pointer;
-      color: #25D366;
-    }
-
-    #side-menu h2 {
-      margin-top: 10px;
-      font-size: 18px;
-      color: #25D366;
-      text-align: center;
-    }
-
-    #side-menu button {
-      margin-top: 15px;
-      padding: 10px;
-      background-color: white;
-      border: 2px solid #25D366;
-      color: #25D366;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    #side-menu button:hover {
-      background-color: #25D366;
-      color: white;
-    }
-
-    .container {
-      padding: 20px;
-      text-align: center;
-    }
-
-    form {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    input[type="text"] {
-      width: 250px;
-      padding: 10px;
-      border: 2px solid #25D366;
-      border-radius: 6px;
-      outline: none;
-    }
-
-    button[type="submit"] {
-      background-color: #25D366;
-      border: none;
-      color: white;
-      padding: 10px 18px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    button[type="submit"]:hover {
-      background-color: #20b75b;
-    }
-
-    .results {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .result-item {
-      background: white;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      width: 90%;
-      max-width: 400px;
-      text-align: left;
-    }
-
-    .result-item h4 {
-      margin: 0 0 10px;
-      font-size: 16px;
-      color: #333;
-    }
-
-    .result-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .result-buttons button {
-      flex: 1;
-      padding: 8px;
-      background: #25D366;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .result-buttons button:hover {
-      background: #20b75b;
+    /* Estilos para el cargador de animación */
+    .loader {
+      /* Mantener estilos del cargador si son complejos,
+         o ajustar colores si son CSS variables en styles.css */
     }
   </style>
 </head>
-
 <body>
+  <div id="side-menu" class="side-menu">
+  <button id="close-menu" class="close-button">✖</button>
+  <h2>Info de Contacto</h2> <button onclick="window.location.href='https://wa.me/50433191934'" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; background-color: #25D366; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 10px;">
+    <i class="fab fa-whatsapp" style="font-size: 20px;"></i>
+    Contacta al Creador
+  </button>  <button onclick="window.location.href='https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m'" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; background-color: #25D366; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
+    <i class="fas fa-bullhorn" style="font-size: 20px;"></i>
+    Únete al Canal Oficial
+  </button> </div>
 
-<header>
-  <div class="logo">
-    <i class="fas fa-music"></i> PlayYoutube
-  </div>
-  <button class="menu-button" onclick="openMenu()"><i class="fas fa-bars"></i></button>
+<header class="header">
+  <h1 class="logo">
+    <i class="fas fa-music"></i> PlayYoutube By Wirk 👻 </h1>
+  <button id="menu-button" class="menu-button">☰</button>
 </header>
-
-<nav id="side-menu">
-  <button id="close-menu" onclick="closeMenu()"><i class="fas fa-times"></i></button>
-  <h2>Información</h2>
-  <button onclick="window.open('https://youtube.com/@tu-canal', '_blank')">Canal Oficial</button>
-  <button onclick="window.open('https://wa.me/50493732693', '_blank')">Creador</button>
-</nav>
 
 <div class="container">
   <form id="search-form">
-    <input type="text" id="search-input" placeholder="¿Qué quieres buscar?" required>
-    <button type="submit">Buscar</button>
+    <input type="text" id="search-input" placeholder=" ¡Busca tu música favorita ahora! 🎧" required /> <button type="submit">Buscar</button>
   </form>
 
-  <div id="results" class="results"></div>
+  <div id="loading-message" style="display: none;">
+    <div class="loader">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <p id="loading-text">Buscando la canción perfecta...</p> </div>
+
+  <div class="music-list" id="music-list">
+    </div>
 </div>
 
+<audio id="audio-player" controls></audio>
+
+<script src="api.js"></script>
 <script>
-  function openMenu() {
-    document.getElementById('side-menu').classList.add('open');
+  const menuBtn = document.getElementById("menu-button");
+  const closeBtn = document.getElementById("close-menu");
+  const sideMenu = document.getElementById("side-menu");
+  const audioPlayer = document.getElementById("audio-player"); // Asegúrate de obtener el reproductor
+
+  menuBtn.onclick = () => sideMenu.classList.add("open");
+  closeBtn.onclick = () => sideMenu.classList.remove("open");
+
+  // Esta función asume que 'url' es la URL directa del archivo de audio
+  function reproducirCancion(url) {
+    audioPlayer.src = url;
+    audioPlayer.style.display = "block"; // Muestra el reproductor
+    audioPlayer.play(); // Inicia la reproducción
   }
 
-  function closeMenu() {
-    document.getElementById('side-menu').classList.remove('open');
-  }
-
-  document.getElementById('search-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const query = document.getElementById('search-input').value.trim();
-    if (!query) return;
-
-    const resultsContainer = document.getElementById('results');
-    resultsContainer.innerHTML = '<p>Buscando resultados...</p>';
-
-    try {
-      const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-      const data = await response.json();
-
-      if (data.results.length === 0) {
-        resultsContainer.innerHTML = '<p>No se encontraron resultados.</p>';
-        return;
-      }
-
-      resultsContainer.innerHTML = '';
-
-      data.results.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'result-item';
-
-        div.innerHTML = `
-          <h4>${item.title}</h4>
-          <div class="result-buttons">
-            <button onclick="reproducirAudio('${item.audioUrl}')">▶ Reproducir Audio</button>
-            <button onclick="descargarVideo('${item.videoUrl}')">⬇ Descargar Video</button>
-          </div>
-        `;
-
-        resultsContainer.appendChild(div);
-      });
-
-    } catch (err) {
-      console.error(err);
-      resultsContainer.innerHTML = '<p>Error al buscar resultados.</p>';
-    }
+  // Oculta el reproductor cuando la canción termina
+  audioPlayer.addEventListener("ended", () => {
+    audioPlayer.style.display = "none";
   });
 
-  function reproducirAudio(url) {
-    window.open(url, '_blank');
-  }
+  // ANIMACIÓN DE CARGA (puntos ...)
+  const loadingText = document.getElementById('loading-text');
+  let dotCount = 0;
+  setInterval(() => {
+    dotCount = (dotCount + 1) % 4; // Cycle between 0, 1, 2, 3 dots
+    let dots = '.'.repeat(dotCount);
+    loadingText.textContent = `Buscando la canción perfecta${dots}`; // Usa el texto actualizado
+  }, 500);
 
-  function descargarVideo(url) {
-    window.open(url, '_blank');
-  }
+  // Posiblemente necesites más lógica aquí para manejar la búsqueda
+  // y la inserción de resultados en #music-list, que probablemente está en api.js
 </script>
-
 </body>
 </html>
