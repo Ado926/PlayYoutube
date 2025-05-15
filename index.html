@@ -3,25 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ThePlayYoutube By Wirk 👻</title>
+  <title>ThePlayYoutube By Wirk 🐾</title>
 
   <link rel="stylesheet" href="styles.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family= comforts:wght@400;600;700&display=swap" rel="stylesheet">
 
 
   <style>
     /* General Body Styles */
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Comfortaa', cursive; /* A softer, more playful font */
       margin: 0;
-      background: linear-gradient(to right, #6dd5ed, #2193b0); /* Appealing gradient background */
-      color: #333;
+      background: url('https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed; /* Cat background image */
+      background-size: cover; /* Cover the entire background */
+      color: #4a4a4a; /* Dark grey for text */
       line-height: 1.6;
       min-height: 100vh;
       position: relative; /* Needed for footer positioning */
-      padding-bottom: 80px; /* Add padding at the bottom equal to player height */
+      padding-bottom: 100px; /* Add padding at the bottom for the player */
     }
+
+    /* Add a semi-transparent overlay to make text more readable */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white overlay */
+        z-index: -1; /* Place behind content */
+    }
+
 
     /* Estilos para el reproductor de audio fijo */
     #audio-player {
@@ -30,51 +44,59 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      background-color: #1a7d9a; /* Slightly darker blue from gradient */
-      padding: 12px 20px;
-      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+      background-color: rgba(150, 100, 100, 0.8); /* Semi-transparent earthy tone */
+      padding: 15px 20px;
+      box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
       z-index: 1000;
-      box-sizing: border-box; /* Include padding in width */
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      box-sizing: border-box;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      backdrop-filter: blur(5px); /* Frosted glass effect */
+      color: white;
     }
 
     /* Estilos del header */
     .header {
-      background-color: #1a7d9a; /* Match audio player or use a darker shade */
+      background-color: rgba(150, 100, 100, 0.8); /* Match audio player or use a darker shade */
       color: white;
-      padding: 20px;
+      padding: 25px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      gap: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      margin-bottom: 30px;
+      backdrop-filter: blur(5px); /* Frosted glass effect */
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
     }
 
     .logo {
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 700; /* Bold font */
       display: flex;
       align-items: center;
-      gap: 12px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      gap: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .creator-info {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 400; /* Regular font */
       margin-top: 5px;
-      color: #d4f8df; /* Keep a light green for contrast */
+      color: #ffe9d1; /* A light, warm color */
       opacity: 0.9;
     }
 
     /* Estilos del contenedor principal */
     .container {
-      padding: 20px;
-      max-width: 800px;
+      padding: 30px;
+      max-width: 700px; /* Slightly narrower container */
       margin: 20px auto; /* Center container and add top margin */
-      background-color: #ffffff; /* White background for content */
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px); /* Frosted glass effect */
     }
 
     /* Estilos del formulario de búsqueda */
@@ -82,45 +104,51 @@
       display: flex;
       gap: 15px;
       margin-bottom: 30px;
-      padding: 15px;
-      background-color: #f8f9fa; /* Light grey background for form */
-      border-radius: 8px;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.7); /* More transparent background for form */
+      border-radius: 10px;
+      box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
+      backdrop-filter: blur(5px); /* Frosted glass effect */
     }
 
     #search-input {
       flex: 1;
-      padding: 12px 15px;
-      border: 1px solid #ced4da; /* Lighter border */
-      border-radius: 6px;
+      padding: 14px 18px;
+      border: 1px solid #d3b8a4; /* Earthy border color */
+      border-radius: 8px;
       outline: none;
-      font-size: 1rem;
+      font-size: 1.1rem;
       transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      background-color: rgba(255, 255, 255, 0.6); /* Slightly transparent input */
     }
 
     #search-input:focus {
-        border-color: #2193b0; /* Highlight on focus */
-        box-shadow: 0 0 5px rgba(33, 147, 176, 0.3);
+        border-color: #a07860; /* Darker earthy highlight on focus */
+        box-shadow: 0 0 8px rgba(160, 120, 96, 0.4);
+        background-color: rgba(255, 255, 255, 0.8);
     }
 
     #search-form button {
-      padding: 12px 25px;
-      background-color: #2193b0; /* Blue accent color */
+      padding: 14px 28px;
+      background-color: #a07860; /* Earthy button color */
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: 600; /* Semi-bold */
-      font-size: 1rem;
+      font-weight: 600;
+      font-size: 1.1rem;
       transition: background-color 0.3s ease-in-out, transform 0.1s ease-in-out;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     }
 
     #search-form button:hover {
-        background-color: #1a7d9a; /* Darker shade on hover */
+        background-color: #85634d; /* Darker shade on hover */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     #search-form button:active {
         transform: scale(0.98); /* Slightly shrink on click */
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     }
 
 
@@ -129,14 +157,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 5px;
+        gap: 6px;
+        margin-bottom: 15px;
     }
 
     .loader span {
       display: inline-block;
-      width: 10px; /* Slightly larger dots */
-      height: 10px; /* Slightly larger dots */
-      background-color: #2193b0; /* Blue for loader dots */
+      width: 12px; /* Larger dots */
+      height: 12px; /* Larger dots */
+      background-color: #a07860; /* Earthy color for dots */
       border-radius: 50%;
       animation: loader-animation 1s infinite alternate;
     }
@@ -155,61 +184,69 @@
 
 
     @keyframes loader-animation {
-      from { transform: scale(0.8); opacity: 0.5; } /* Start smaller and less opaque */
-      to { transform: scale(1.2); opacity: 1; } /* End larger and fully opaque */
+      from { transform: scale(0.7); opacity: 0.6; }
+      to { transform: scale(1.1); opacity: 1; }
     }
 
     #loading-message {
       text-align: center;
       margin-top: 20px;
-      color: #2193b0; /* Blue text color */
-      font-size: 1.1rem;
+      color: #85634d; /* Darker earthy text color */
+      font-size: 1.2rem;
       font-weight: 600;
     }
 
-    /* Basic styling for the music list - You'll likely add more here via JS */
+    /* Basic styling for the music list */
     .music-list {
         margin-top: 20px;
     }
 
-    /* Style for individual music items (example, assuming you add them dynamically) */
+    /* Style for individual music items */
     .music-item {
-        background-color: #e9ecef; /* Light grey for list items */
-        padding: 15px;
-        margin-bottom: 10px;
-        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.9); /* Nearly opaque white for list items */
+        padding: 15px 20px;
+        margin-bottom: 12px;
+        border-radius: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-        transition: transform 0.2s ease-in-out;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        border: 1px solid rgba(211, 184, 164, 0.5); /* Soft border */
     }
 
     .music-item:hover {
-        transform: translateY(-3px); /* Subtle hover effect */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px); /* More pronounced hover effect */
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     }
 
     .music-item h3 {
         margin: 0;
         font-size: 1.1rem;
-        color: #333;
+        color: #4a4a4a;
     }
 
      .music-item button {
-        background-color: #28a745; /* Green play button */
+        background-color: #6a994e; /* Greenish-brown play button */
         color: white;
         border: none;
-        padding: 8px 15px;
-        border-radius: 5px;
+        padding: 10px 20px;
+        border-radius: 6px;
         cursor: pointer;
-        font-size: 0.9rem;
-        transition: background-color 0.3s ease-in-out;
+        font-size: 1rem;
+        transition: background-color 0.3s ease-in-out, transform 0.1s ease-in-out;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
      }
 
      .music-item button:hover {
-        background-color: #218838; /* Darker green on hover */
+        background-color: #567d3e; /* Darker green on hover */
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
      }
+
+    .music-item button:active {
+        transform: scale(0.98);
+    }
+
 
   </style>
 </head>
@@ -218,7 +255,7 @@
 
   <header class="header">
     <div class="logo">
-      <i class="fas fa-music"></i> 🎶 PlayYoutube By Wirk 👻
+      <i class="fas fa-cat"></i> 🐾 PlayYoutube By Wirk 👻
     </div>
     <div class="creator-info">
      👾 Creador: +504 9373-2693
@@ -228,7 +265,7 @@
   <div class="container">
     <form id="search-form">
       <input type="text" id="search-input" placeholder=" Busca Tu Video 📹" required />
-      <button type="submit"><i class="fas fa-search"></i> Buscar</button>
+      <button type="submit"><i class="fas fa-paw"></i> Buscar</button>
     </form>
 
     <div id="loading-message" style="display: none;">
@@ -263,9 +300,10 @@
       console.log("Audio playback ended.");
     });
 
-    // ANIMACIÓN DE CARGA (mejorada y using the loader spans)
+    // ANIMACIÓN DE CARGA
     const originalLoadingText = "Buscando la canción perfecta";
     let loadingInterval;
+    let dotCount = 0; // Define dotCount here
 
     function startLoadingAnimation() {
         dotCount = 0; // Reset dot count
@@ -282,7 +320,7 @@
     function stopLoadingAnimation() {
         clearInterval(loadingInterval);
         loadingMessage.style.display = "none"; // Hide loading message
-        loadingText.textContent = originalLoadingText + "..."; // Reset text
+        loadingText.textContent = originalLoadingText; // Reset text without dots
     }
 
 
