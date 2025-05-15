@@ -7,7 +7,7 @@
 
   <link rel="stylesheet" href="styles.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family= comforts:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet">
 
 
   <style>
@@ -196,55 +196,113 @@
       font-weight: 600;
     }
 
-    /* Basic styling for the music list */
+    /* Styling for the music list container */
     .music-list {
         margin-top: 20px;
+        display: grid; /* Use grid for potentially better layout options */
+        gap: 15px; /* Space between grid items */
     }
 
-    /* Style for individual music items */
-    .music-item {
+    /* Styling for individual result items */
+    .result-item {
         background-color: rgba(255, 255, 255, 0.9); /* Nearly opaque white for list items */
-        padding: 15px 20px;
-        margin-bottom: 12px;
+        padding: 15px;
         border-radius: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
         transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         border: 1px solid rgba(211, 184, 164, 0.5); /* Soft border */
+        display: flex; /* Use flexbox to arrange content inside the item */
+        align-items: center; /* Vertically align items */
+        gap: 15px; /* Space between elements in the flex container */
     }
 
-    .music-item:hover {
+    .result-item:hover {
         transform: translateY(-5px); /* More pronounced hover effect */
         box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     }
 
-    .music-item h3 {
-        margin: 0;
-        font-size: 1.1rem;
-        color: #4a4a4a;
+    .result-item img {
+        width: 100px; /* Fixed width for thumbnail */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 8px; /* Rounded corners for image */
+        object-fit: cover; /* Cover the area without distortion */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-     .music-item button {
+    .result-item .item-details {
+        flex-grow: 1; /* Allow details to take up available space */
+    }
+
+    .result-item h3 {
+        margin: 0 0 8px 0; /* Add some space below the title */
+        font-size: 1.1rem;
+        color: #4a4a4a;
+        word-break: break-word; /* Prevent long titles from overflowing */
+    }
+
+    .result-item .item-buttons {
+        display: flex;
+        gap: 10px; /* Space between buttons */
+        flex-shrink: 0; /* Prevent buttons from shrinking */
+    }
+
+
+     .result-item button {
         background-color: #6a994e; /* Greenish-brown play button */
         color: white;
         border: none;
-        padding: 10px 20px;
+        padding: 10px 15px; /* Adjusted padding */
         border-radius: 6px;
         cursor: pointer;
-        font-size: 1rem;
+        font-size: 0.9rem;
         transition: background-color 0.3s ease-in-out, transform 0.1s ease-in-out;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex; /* Use flex to center icon and text */
+        align-items: center;
+        gap: 5px; /* Space between icon and text */
      }
 
-     .music-item button:hover {
+     .result-item button:hover {
         background-color: #567d3e; /* Darker green on hover */
         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
      }
 
-    .music-item button:active {
+    .result-item button:active {
         transform: scale(0.98);
+    }
+
+    .result-item .download-button {
+         background-color: #a07860; /* Earthy color for download button */
+    }
+
+     .result-item .download-button:hover {
+        background-color: #85634d; /* Darker earthy color on hover */
+     }
+
+
+     /* Responsive adjustments */
+    @media (max-width: 600px) {
+        .result-item {
+            flex-direction: column; /* Stack items vertically on small screens */
+            align-items: flex-start; /* Align items to the start */
+        }
+
+        .result-item img {
+            width: 100%; /* Full width for image on small screens */
+            max-width: 200px; /* Limit max width even when stacked */
+            margin-bottom: 10px; /* Space below image */
+        }
+
+        .result-item .item-buttons {
+            width: 100%; /* Make buttons take full width */
+            justify-content: space-around; /* Distribute buttons */
+            margin-top: 10px; /* Space above buttons */
+        }
+
+         .result-item button {
+            flex-grow: 1; /* Allow buttons to grow */
+            justify-content: center; /* Center button content */
+         }
     }
 
 
@@ -287,12 +345,23 @@
     const audioPlayer = document.getElementById("audio-player");
     const loadingMessage = document.getElementById('loading-message');
     const loadingText = document.getElementById('loading-text');
+    const musicList = document.getElementById('music-list'); // Get the music list container
 
     function reproducirCancion(url) {
       audioPlayer.src = url;
       audioPlayer.style.display = "block";
       audioPlayer.play();
     }
+
+    // You will need to implement the descargarVideo function in your api.js or here
+    function descargarVideo(url) {
+        // Logic to handle video download
+        console.log("Downloading video from:", url);
+        // This might involve opening the URL in a new tab, or more complex
+        // server-side handling depending on your API.
+        window.open(url, '_blank'); // Example: Open URL in new tab (might trigger download for some links)
+    }
+
 
     audioPlayer.addEventListener("ended", () => {
       // Decide if you want to hide the player or just pause
@@ -303,12 +372,14 @@
     // ANIMACIÓN DE CARGA
     const originalLoadingText = "Buscando la canción perfecta";
     let loadingInterval;
-    let dotCount = 0; // Define dotCount here
+    let dotCount = 0;
 
     function startLoadingAnimation() {
         dotCount = 0; // Reset dot count
         loadingText.textContent = originalLoadingText + "..."; // Initial text
         loadingMessage.style.display = "block"; // Show loading message
+        musicList.innerHTML = ''; // Clear previous results when loading starts
+
 
         loadingInterval = setInterval(() => {
             dotCount = (dotCount + 1) % 4;
@@ -324,14 +395,59 @@
     }
 
 
-    // You would call startLoadingAnimation() before your search API call
-    // and stopLoadingAnimation() after you receive and display results.
-    // For demonstration, you can manually call them:
-    // startLoadingAnimation(); // Call this when search begins
-    // setTimeout(stopLoadingAnimation, 5000); // Call this when search ends (example)
+    // You will need to add an event listener to your search form
+    // and call startLoadingAnimation() when the form is submitted,
+    // then call stopLoadingAnimation() after your API call completes
+    // and you have displayed the results in the musicList div.
 
-    // Make sure your api.js or search handling code calls these functions
-    // when the search starts and ends.
+    // Example (replace with your actual search logic):
+    // document.getElementById('search-form').addEventListener('submit', async (event) => {
+    //     event.preventDefault();
+    //     const searchTerm = document.getElementById('search-input').value;
+    //     startLoadingAnimation();
+    //
+    //     // Call your API here to get search results
+    //     // const results = await fetchSearchResults(searchTerm); // Assuming you have this function
+    //
+    //     // After getting results, display them:
+    //     // displayResults(results); // Assuming you have a function to display results
+    //
+    //     stopLoadingAnimation();
+    // });
+
+
+    // Function to display results (example structure you need to implement)
+    /*
+    function displayResults(results) {
+        musicList.innerHTML = ''; // Clear previous results
+        if (results && results.length > 0) {
+            results.forEach(result => {
+                const resultItem = document.createElement('div');
+                resultItem.classList.add('result-item');
+
+                resultItem.innerHTML = `
+                    <img src="${result.thumbnailUrl}" alt="${result.title} thumbnail">
+                    <div class="item-details">
+                        <h3>${result.title}</h3>
+                    </div>
+                    <div class="item-buttons">
+                        <button class="play-audio-button" onclick="reproducirCancion('${result.audioUrl}')">
+                            <i class="fas fa-play"></i> Audio
+                        </button>
+                        <button class="download-button" onclick="descargarVideo('${result.videoUrl}')">
+                            <i class="fas fa-download"></i> Descargar
+                        </button>
+                    </div>
+                `; // Assuming your API returns objects with thumbnailUrl, title, audioUrl, and videoUrl
+
+                musicList.appendChild(resultItem);
+            });
+        } else {
+            musicList.innerHTML = '<p style="text-align: center;">No se encontraron resultados de gatitos 😿.</p>';
+        }
+    }
+    */
+
   </script>
 
 </body>
