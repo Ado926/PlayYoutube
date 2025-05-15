@@ -7,102 +7,210 @@
 
   <link rel="stylesheet" href="styles.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
 
   <style>
+    /* General Body Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, #6dd5ed, #2193b0); /* Appealing gradient background */
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative; /* Needed for footer positioning */
+      padding-bottom: 80px; /* Add padding at the bottom equal to player height */
+    }
+
     /* Estilos para el reproductor de audio fijo */
     #audio-player {
       display: none;
       position: fixed;
       bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
       width: 100%;
-      max-width: 800px;
-      background-color: #1b8e5a; /* Verde oscuro */
-      padding: 12px;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+      background-color: #1a7d9a; /* Slightly darker blue from gradient */
+      padding: 12px 20px;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
       z-index: 1000;
+      box-sizing: border-box; /* Include padding in width */
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     /* Estilos del header */
     .header {
-      background-color: #1b8e5a;
+      background-color: #1a7d9a; /* Match audio player or use a darker shade */
       color: white;
-      padding: 15px 20px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 5px;
+      gap: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
     .logo {
-      font-size: 24px;
-      font-weight: bold;
+      font-size: 28px;
+      font-weight: 700; /* Bold font */
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
 
     .creator-info {
-      font-size: 14px;
-      font-weight: normal;
+      font-size: 15px;
+      font-weight: 400; /* Regular font */
       margin-top: 5px;
-      color: #d4f8df;
+      color: #d4f8df; /* Keep a light green for contrast */
+      opacity: 0.9;
     }
 
     /* Estilos del contenedor principal */
     .container {
       padding: 20px;
+      max-width: 800px;
+      margin: 20px auto; /* Center container and add top margin */
+      background-color: #ffffff; /* White background for content */
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
     /* Estilos del formulario de búsqueda */
     #search-form {
       display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 15px;
+      margin-bottom: 30px;
+      padding: 15px;
+      background-color: #f8f9fa; /* Light grey background for form */
+      border-radius: 8px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
     }
 
     #search-input {
       flex: 1;
-      padding: 10px;
-      border: 2px solid #1b8e5a;
-      border-radius: 8px;
+      padding: 12px 15px;
+      border: 1px solid #ced4da; /* Lighter border */
+      border-radius: 6px;
       outline: none;
+      font-size: 1rem;
+      transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    #search-input:focus {
+        border-color: #2193b0; /* Highlight on focus */
+        box-shadow: 0 0 5px rgba(33, 147, 176, 0.3);
     }
 
     #search-form button {
-      padding: 10px 20px;
-      background-color: #1b8e5a;
+      padding: 12px 25px;
+      background-color: #2193b0; /* Blue accent color */
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 600; /* Semi-bold */
+      font-size: 1rem;
+      transition: background-color 0.3s ease-in-out, transform 0.1s ease-in-out;
     }
 
+    #search-form button:hover {
+        background-color: #1a7d9a; /* Darker shade on hover */
+    }
+
+    #search-form button:active {
+        transform: scale(0.98); /* Slightly shrink on click */
+    }
+
+
     /* Estilos del cargador */
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+    }
+
     .loader span {
       display: inline-block;
-      width: 8px;
-      height: 8px;
-      margin: 3px;
-      background-color: #1b8e5a; /* Color verde para puntos de carga */
+      width: 10px; /* Slightly larger dots */
+      height: 10px; /* Slightly larger dots */
+      background-color: #2193b0; /* Blue for loader dots */
       border-radius: 50%;
       animation: loader-animation 1s infinite alternate;
     }
 
+    .loader span:nth-child(2) { animation-delay: 0.1s; }
+    .loader span:nth-child(3) { animation-delay: 0.2s; }
+    .loader span:nth-child(4) { animation-delay: 0.3s; }
+    .loader span:nth-child(5) { animation-delay: 0.4s; }
+    .loader span:nth-child(6) { animation-delay: 0.5s; }
+     .loader span:nth-child(7) { animation-delay: 0.6s; }
+    .loader span:nth-child(8) { animation-delay: 0.7s; }
+    .loader span:nth-child(9) { animation-delay: 0.8s; }
+    .loader span:nth-child(10) { animation-delay: 0.9s; }
+    .loader span:nth-child(11) { animation-delay: 1.0s; }
+    .loader span:nth-child(12) { animation-delay: 1.1s; }
+
+
     @keyframes loader-animation {
-      from { transform: scale(1); }
-      to { transform: scale(1.5); }
+      from { transform: scale(0.8); opacity: 0.5; } /* Start smaller and less opaque */
+      to { transform: scale(1.2); opacity: 1; } /* End larger and fully opaque */
     }
 
     #loading-message {
       text-align: center;
       margin-top: 20px;
-      color: #1b8e5a;
+      color: #2193b0; /* Blue text color */
+      font-size: 1.1rem;
+      font-weight: 600;
     }
+
+    /* Basic styling for the music list - You'll likely add more here via JS */
+    .music-list {
+        margin-top: 20px;
+    }
+
+    /* Style for individual music items (example, assuming you add them dynamically) */
+    .music-item {
+        background-color: #e9ecef; /* Light grey for list items */
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .music-item:hover {
+        transform: translateY(-3px); /* Subtle hover effect */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .music-item h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: #333;
+    }
+
+     .music-item button {
+        background-color: #28a745; /* Green play button */
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease-in-out;
+     }
+
+     .music-item button:hover {
+        background-color: #218838; /* Darker green on hover */
+     }
+
   </style>
 </head>
 
@@ -110,17 +218,17 @@
 
   <header class="header">
     <div class="logo">
-      <i class="fas fa-music"></i> 🌻 PlayYoutube By Wirk 👻
+      <i class="fas fa-music"></i> 🎶 PlayYoutube By Wirk 👻
     </div>
     <div class="creator-info">
-     👾 Creador: +504 9373-2693 
+     👾 Creador: +504 9373-2693
     </div>
   </header>
 
   <div class="container">
     <form id="search-form">
       <input type="text" id="search-input" placeholder=" Busca Tu Video 📹" required />
-      <button type="submit">🔎 Buscar</button>
+      <button type="submit"><i class="fas fa-search"></i> Buscar</button>
     </form>
 
     <div id="loading-message" style="display: none;">
@@ -128,10 +236,11 @@
         <span></span><span></span><span></span><span></span><span></span><span></span>
         <span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
-      <p id="loading-text">♾️ Buscando...</p>
+      <p id="loading-text">Buscando la canción perfecta...</p>
     </div>
 
-    <div class="music-list" id="music-list"></div>
+    <div class="music-list" id="music-list">
+      </div>
   </div>
 
   <audio id="audio-player" controls></audio>
@@ -139,6 +248,8 @@
   <script src="api.js"></script>
   <script>
     const audioPlayer = document.getElementById("audio-player");
+    const loadingMessage = document.getElementById('loading-message');
+    const loadingText = document.getElementById('loading-text');
 
     function reproducirCancion(url) {
       audioPlayer.src = url;
@@ -147,19 +258,42 @@
     }
 
     audioPlayer.addEventListener("ended", () => {
-      audioPlayer.style.display = "none";
+      // Decide if you want to hide the player or just pause
+      // audioPlayer.style.display = "none";
+      console.log("Audio playback ended.");
     });
 
-    // ANIMACIÓN DE CARGA
-    const loadingText = document.getElementById('loading-text');
-    let dotCount = 0;
-    /*
-    setInterval(() => {
-      dotCount = (dotCount + 1) % 4;
-      let dots = '.'.repeat(dotCount);
-      loadingText.textContent = `Buscando la canción perfecta${dots}`;
-    }, 500);
-    */
+    // ANIMACIÓN DE CARGA (mejorada y using the loader spans)
+    const originalLoadingText = "Buscando la canción perfecta";
+    let loadingInterval;
+
+    function startLoadingAnimation() {
+        dotCount = 0; // Reset dot count
+        loadingText.textContent = originalLoadingText + "..."; // Initial text
+        loadingMessage.style.display = "block"; // Show loading message
+
+        loadingInterval = setInterval(() => {
+            dotCount = (dotCount + 1) % 4;
+            let dots = '.'.repeat(dotCount);
+            loadingText.textContent = originalLoadingText + dots;
+        }, 500); // Adjust speed as needed
+    }
+
+    function stopLoadingAnimation() {
+        clearInterval(loadingInterval);
+        loadingMessage.style.display = "none"; // Hide loading message
+        loadingText.textContent = originalLoadingText + "..."; // Reset text
+    }
+
+
+    // You would call startLoadingAnimation() before your search API call
+    // and stopLoadingAnimation() after you receive and display results.
+    // For demonstration, you can manually call them:
+    // startLoadingAnimation(); // Call this when search begins
+    // setTimeout(stopLoadingAnimation, 5000); // Call this when search ends (example)
+
+    // Make sure your api.js or search handling code calls these functions
+    // when the search starts and ends.
   </script>
 
 </body>
