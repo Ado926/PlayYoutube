@@ -1,207 +1,282 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ThePlayYoutube By Wirk 🐾</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ThePlayYoutube By Wirk 🐾</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* Reset básico */
+  * {
+    box-sizing: border-box;
+  }
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --main-color: #a07860;
-      --bg-overlay: rgba(255, 255, 255, 0.5);
-      --glass-bg: rgba(255, 255, 255, 0.85);
-      --accent-color: #ffe9d1;
-      --text-dark: #333;
-    }
+  body {
+    font-family: 'Comfortaa', cursive;
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    color: #3b3a36;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 15px 120px;
+    overflow-x: hidden;
+  }
 
-    * {
-      box-sizing: border-box;
-    }
+  /* Overlay sutil para mejorar lectura */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(255 255 255 / 0.7);
+    z-index: -1;
+    backdrop-filter: blur(8px);
+  }
 
-    body {
-      margin: 0;
-      font-family: 'Comfortaa', cursive;
-      background: url('https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
-      background-size: cover;
-      color: var(--text-dark);
-      min-height: 100vh;
-      padding-bottom: 100px;
-    }
+  /* Header */
+  .header {
+    width: 100%;
+    max-width: 700px;
+    background: #6a994e; /* Verde vibrante */
+    color: white;
+    padding: 30px 20px 25px;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 8px 20px rgb(106 153 78 / 0.6);
+    text-align: center;
+  }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-color: var(--bg-overlay);
-      z-index: -1;
-    }
+  .logo {
+    font-size: 2.8rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    text-shadow: 1.5px 1.5px 3px rgba(0,0,0,0.15);
+  }
 
-    .header {
-      text-align: center;
-      padding: 30px 15px;
-      background: rgba(160, 120, 96, 0.85);
-      color: white;
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    }
+  .logo i {
+    font-size: 2.8rem;
+    color: #ffe066;
+    transform: rotate(-10deg);
+  }
 
-    .logo {
-      font-size: 2rem;
-      font-weight: 700;
-    }
+  .creator-info {
+    margin-top: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #dfe6e9;
+    opacity: 0.9;
+    font-style: italic;
+  }
 
-    .creator-info {
-      font-size: 1rem;
-      color: var(--accent-color);
-    }
+  /* Contenedor principal */
+  .container {
+    background: white;
+    max-width: 700px;
+    width: 100%;
+    padding: 30px 25px 40px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 8px 30px rgb(0 0 0 / 0.08);
+  }
 
-    .container {
-      max-width: 95%;
-      margin: 20px auto;
-      background: var(--glass-bg);
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      backdrop-filter: blur(10px);
-    }
+  /* Formulario búsqueda */
+  #search-form {
+    display: flex;
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
 
-    #search-form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
+  #search-input {
+    flex: 1;
+    padding: 16px 20px;
+    font-size: 1.2rem;
+    border: 2px solid #a2d5c6;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: #f7fff7;
+  }
 
-    #search-input {
-      padding: 14px;
-      font-size: 1.1rem;
-      border: 1px solid #d3b8a4;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.6);
-      outline: none;
-    }
+  #search-input:focus {
+    border-color: #52796f;
+    box-shadow: 0 0 10px #52796faa;
+  }
 
-    #search-input:focus {
-      border-color: var(--main-color);
-      box-shadow: 0 0 5px var(--main-color);
-    }
+  #search-form button {
+    background: #52796f;
+    border: none;
+    color: white;
+    padding: 0 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 5px 15px rgb(82 121 111 / 0.5);
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    user-select: none;
+  }
 
-    #search-form button {
-      padding: 14px;
-      background-color: var(--main-color);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-    }
+  #search-form button:hover {
+    background: #3a5a52;
+  }
 
-    #search-form button:hover {
-      background-color: #704f3c;
-    }
+  #search-form button:active {
+    transform: scale(0.95);
+  }
 
-    #search-form button:active {
-      transform: scale(0.97);
-    }
+  /* Loader */
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 25px 0 15px;
+  }
 
-    .loader {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
-      margin: 20px 0;
-    }
+  .loader span {
+    width: 14px;
+    height: 14px;
+    background-color: #52796f;
+    border-radius: 50%;
+    animation: pulse 1.3s infinite alternate;
+  }
 
-    .loader span {
-      width: 10px;
-      height: 10px;
-      background-color: var(--main-color);
-      border-radius: 50%;
-      animation: loader-animation 1s infinite alternate;
-    }
+  .loader span:nth-child(2) { animation-delay: 0.15s; }
+  .loader span:nth-child(3) { animation-delay: 0.3s; }
+  .loader span:nth-child(4) { animation-delay: 0.45s; }
 
-    .loader span:nth-child(2) { animation-delay: 0.1s; }
-    .loader span:nth-child(3) { animation-delay: 0.2s; }
-    .loader span:nth-child(4) { animation-delay: 0.3s; }
+  @keyframes pulse {
+    0% { transform: scale(0.75); opacity: 0.7; }
+    100% { transform: scale(1.2); opacity: 1; }
+  }
 
-    @keyframes loader-animation {
-      from { transform: scale(0.7); opacity: 0.6; }
-      to { transform: scale(1.2); opacity: 1; }
-    }
+  #loading-message {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: #52796f;
+  }
 
-    .music-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+  /* Lista de resultados */
+  .music-list {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
 
-    .result-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: white;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transition: transform 0.2s ease;
-    }
+  /* Item individual */
+  .result-item {
+    background: #e7f6f2;
+    padding: 18px 22px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgb(0 0 0 / 0.08);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
 
-    .result-item:hover {
-      transform: translateY(-3px);
-    }
+  .result-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgb(0 0 0 / 0.12);
+  }
 
-    #audio-player {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: rgba(150, 100, 100, 0.9);
-      color: white;
-      padding: 10px 20px;
-      border-top-left-radius: 15px;
-      border-top-right-radius: 15px;
-      backdrop-filter: blur(5px);
-      text-align: center;
-      font-size: 1rem;
-      z-index: 1000;
-    }
+  .result-item img {
+    width: 110px;
+    height: 110px;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 3px 7px rgb(0 0 0 / 0.1);
+    flex-shrink: 0;
+  }
 
-    @media screen and (min-width: 600px) {
-      #search-form {
-        flex-direction: row;
-      }
+  .item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-wrap: break-word;
+  }
 
-      #search-input {
-        flex: 1;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <div class="logo">🎵 ThePlayYoutube</div>
-    <div class="creator-info">Creado por Wirk 🐾</div>
-  </div>
+  .item-details h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #344e41;
+    line-height: 1.2;
+  }
 
-  <div class="container">
-    <form id="search-form">
-      <input id="search-input" type="text" placeholder="Buscar canción o video..." />
-      <button type="submit"><i class="fas fa-search"></i> Buscar</button>
-    </form>
+  /* Botones */
+  .item-buttons {
+    display: flex;
+    gap: 14px;
+    flex-shrink: 0;
+  }
 
-    <div class="loader" id="loader" style="display:none;">
-      <span></span><span></span><span></span><span></span>
-    </div>
+  .result-item button {
+    padding: 12px 18px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    user-select: none;
+  }
 
-    <div class="music-list" id="results"></div>
-  </div>
+  /* Botón reproducir */
+  .result-item .play-button {
+    background-color: #6a994e;
+    color: white;
+  }
 
-  <div id="audio-player">
-    Reproduciendo...
-  </div>
-</body>
-</html>
+  .result-item .play-button:hover {
+    background-color: #4d7537;
+  }
+
+  /* Botón descargar */
+  .result-item .download-button {
+    background-color: #a07860;
+    color: white;
+  }
+
+  .result-item .download-button:hover {
+    background-color: #6e503d;
+  }
+
+  .result-item button:active {
+    transform: scale(0.95);
+  }
+
+  /* Iconos en botones */
+  .result-item button i {
+    font-size: 1.2rem;
+  }
+
+  /* Footer audio player */
+  #audio-player {
+    display: none; /* Mostrarlo solo si tienes audio */
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 700px;
+    background: #52796fcc;
+    color: white;
+    padding: 14px 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(82, 121, 111, 0.85);
+    backdrop-filter:
