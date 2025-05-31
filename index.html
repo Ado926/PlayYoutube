@@ -1,282 +1,167 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ThePlayYoutube By Wirk 🐾</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet" />
-<style>
-  /* Reset básico */
-  * {
-    box-sizing: border-box;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ThePlayYoutube By Wirk 🐾</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  body {
-    font-family: 'Comfortaa', cursive;
-    margin: 0;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-    color: #3b3a36;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0 15px 120px;
-    overflow-x: hidden;
-  }
+    body {
+      font-family: 'Comfortaa', cursive;
+      background: linear-gradient(to bottom right, #f6d365, #fda085); /* Gradiente llamativo */
+      min-height: 100vh;
+      color: #333;
+      padding-bottom: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-  /* Overlay sutil para mejorar lectura */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: rgba(255 255 255 / 0.7);
-    z-index: -1;
-    backdrop-filter: blur(8px);
-  }
+    .header {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
 
-  /* Header */
-  .header {
-    width: 100%;
-    max-width: 700px;
-    background: #6a994e; /* Verde vibrante */
-    color: white;
-    padding: 30px 20px 25px;
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0 8px 20px rgb(106 153 78 / 0.6);
-    text-align: center;
-  }
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #a45b4f;
+    }
 
-  .logo {
-    font-size: 2.8rem;
-    font-weight: 700;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    text-shadow: 1.5px 1.5px 3px rgba(0,0,0,0.15);
-  }
+    .creator-info {
+      font-size: 14px;
+      color: #666;
+    }
 
-  .logo i {
-    font-size: 2.8rem;
-    color: #ffe066;
-    transform: rotate(-10deg);
-  }
+    .container {
+      margin: 20px auto;
+      width: 90%;
+      max-width: 500px;
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
 
-  .creator-info {
-    margin-top: 8px;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #dfe6e9;
-    opacity: 0.9;
-    font-style: italic;
-  }
+    #search-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
 
-  /* Contenedor principal */
-  .container {
-    background: white;
-    max-width: 700px;
-    width: 100%;
-    padding: 30px 25px 40px;
-    border-radius: 0 0 20px 20px;
-    box-shadow: 0 8px 30px rgb(0 0 0 / 0.08);
-  }
+    #search-input {
+      padding: 14px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
 
-  /* Formulario búsqueda */
-  #search-form {
-    display: flex;
-    gap: 12px;
-    flex-wrap: nowrap;
-  }
+    #search-form button {
+      padding: 14px;
+      background-color: #ff805d;
+      color: white;
+      border: none;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
 
-  #search-input {
-    flex: 1;
-    padding: 16px 20px;
-    font-size: 1.2rem;
-    border: 2px solid #a2d5c6;
-    border-radius: 12px;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background: #f7fff7;
-  }
+    #search-form button:hover {
+      background-color: #e66e49;
+    }
 
-  #search-input:focus {
-    border-color: #52796f;
-    box-shadow: 0 0 10px #52796faa;
-  }
+    .loader {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 20px;
+    }
 
-  #search-form button {
-    background: #52796f;
-    border: none;
-    color: white;
-    padding: 0 24px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 5px 15px rgb(82 121 111 / 0.5);
-    transition: background-color 0.3s ease, transform 0.1s ease;
-    user-select: none;
-  }
+    .loader span {
+      width: 10px;
+      height: 10px;
+      background: #ff805d;
+      border-radius: 50%;
+      animation: bounce 1s infinite ease-in-out alternate;
+    }
 
-  #search-form button:hover {
-    background: #3a5a52;
-  }
+    .loader span:nth-child(2) { animation-delay: 0.1s; }
+    .loader span:nth-child(3) { animation-delay: 0.2s; }
+    .loader span:nth-child(4) { animation-delay: 0.3s; }
 
-  #search-form button:active {
-    transform: scale(0.95);
-  }
+    @keyframes bounce {
+      from { transform: scale(0.8); opacity: 0.5; }
+      to { transform: scale(1.2); opacity: 1; }
+    }
 
-  /* Loader */
-  .loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin: 25px 0 15px;
-  }
+    #audio-player {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #a45b4f;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 -2px 15px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
 
-  .loader span {
-    width: 14px;
-    height: 14px;
-    background-color: #52796f;
-    border-radius: 50%;
-    animation: pulse 1.3s infinite alternate;
-  }
+    /* Adaptable para pantallas pequeñas */
+    @media (min-width: 600px) {
+      #search-form {
+        flex-direction: row;
+      }
 
-  .loader span:nth-child(2) { animation-delay: 0.15s; }
-  .loader span:nth-child(3) { animation-delay: 0.3s; }
-  .loader span:nth-child(4) { animation-delay: 0.45s; }
+      #search-input {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
 
-  @keyframes pulse {
-    0% { transform: scale(0.75); opacity: 0.7; }
-    100% { transform: scale(1.2); opacity: 1; }
-  }
+  <div class="header">
+    <div class="logo">🎵 ThePlayYoutube</div>
+    <div class="creator-info">by Wirk 🐾</div>
+  </div>
 
-  #loading-message {
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.3rem;
-    color: #52796f;
-  }
+  <div class="container">
+    <form id="search-form">
+      <input id="search-input" type="text" placeholder="Buscar canción o video..." />
+      <button type="submit">Buscar</button>
+    </form>
 
-  /* Lista de resultados */
-  .music-list {
-    margin-top: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
+    <div class="loader" id="loader" style="display: none;">
+      <span></span><span></span><span></span><span></span>
+    </div>
 
-  /* Item individual */
-  .result-item {
-    background: #e7f6f2;
-    padding: 18px 22px;
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgb(0 0 0 / 0.08);
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
+    <div id="loading-message" style="text-align:center; margin-top:20px;"></div>
 
-  .result-item:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 28px rgb(0 0 0 / 0.12);
-  }
+    <div class="music-list" id="results">
+      <!-- Resultados aquí -->
+    </div>
+  </div>
 
-  .result-item img {
-    width: 110px;
-    height: 110px;
-    border-radius: 16px;
-    object-fit: cover;
-    box-shadow: 0 3px 7px rgb(0 0 0 / 0.1);
-    flex-shrink: 0;
-  }
+  <div id="audio-player">
+    <p>🎶 Reproduciendo ahora...</p>
+  </div>
 
-  .item-details {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow-wrap: break-word;
-  }
-
-  .item-details h3 {
-    margin: 0 0 8px 0;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #344e41;
-    line-height: 1.2;
-  }
-
-  /* Botones */
-  .item-buttons {
-    display: flex;
-    gap: 14px;
-    flex-shrink: 0;
-  }
-
-  .result-item button {
-    padding: 12px 18px;
-    font-size: 1rem;
-    font-weight: 700;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
-    transition: background-color 0.3s ease, transform 0.1s ease;
-    user-select: none;
-  }
-
-  /* Botón reproducir */
-  .result-item .play-button {
-    background-color: #6a994e;
-    color: white;
-  }
-
-  .result-item .play-button:hover {
-    background-color: #4d7537;
-  }
-
-  /* Botón descargar */
-  .result-item .download-button {
-    background-color: #a07860;
-    color: white;
-  }
-
-  .result-item .download-button:hover {
-    background-color: #6e503d;
-  }
-
-  .result-item button:active {
-    transform: scale(0.95);
-  }
-
-  /* Iconos en botones */
-  .result-item button i {
-    font-size: 1.2rem;
-  }
-
-  /* Footer audio player */
-  #audio-player {
-    display: none; /* Mostrarlo solo si tienes audio */
-    position: fixed;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 40px);
-    max-width: 700px;
-    background: #52796fcc;
-    color: white;
-    padding: 14px 25px;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(82, 121, 111, 0.85);
-    backdrop-filter:
+</body>
+</html>
