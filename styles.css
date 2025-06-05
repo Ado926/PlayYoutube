@@ -1,100 +1,190 @@
 /* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-{ margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Comfortaa', cursive;
+  background: linear-gradient(to bottom right, #f6d365, #fda085);
+  min-height: 100vh;
+  color: #333;
+  padding-bottom: 80px; /* Espacio para el reproductor de audio fijo */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 24px; /* Ligeramente más pequeño que antes */
+  font-weight: bold;
+  color: #a45b4f;
+}
+
+.container {
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px; /* Un poco más ancho para mejor layout */
+  background: white;
+  border-radius: 15px;
+  padding: 25px; /* Más padding */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+#search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+#search-input {
+  padding: 14px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  flex-grow: 1; /* Para que ocupe espacio si está en fila */
+}
+
+#search-form button {
+  padding: 14px;
+  background-color: #ff805d;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#search-form button:hover {
+  background-color: #e66e49;
+}
+
+/* Estilos para el mensaje de carga */
+#loading-message {
+  text-align: center;
+  padding: 15px;
+  margin: 20px 0;
+  font-size: 0.9rem;
+  color: #555;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  /* display: none; por defecto se controla en JS */
+}
+
+/* Contenedor de la lista de música/resultados */
+#music-list {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Grid responsivo */
+  gap: 20px;
+}
+
+.music-card { /* Cambiado de .music-item a .music-card */
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center; /* Centrar contenido */
+  text-align: center; /* Centrar texto */
+}
+
+.music-card img { /* Cambiado de .music-item img */
+  width: 100%;
+  max-width: 180px; /* Tamaño máximo de la imagen */
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.music-info h3 { /* .music-item-info h3 a .music-info h3 (asumiendo que api.js crea h3 dentro de .music-info) */
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.music-info p { /* .music-item-info p a .music-info p (asumiendo que api.js crea p dentro de .music-info) */
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Estilos para los botones Play y Download generados por api.js */
+.play-button, .download-button {
+  padding: 10px 15px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, opacity 0.2s;
+  margin-top: 10px; /* Espacio antes de los botones */
+  width: calc(100% - 30px); /* Ancho completo menos padding */
+  box-sizing: border-box;
+}
+
+.play-button {
+  background-color: #5cb85c; /* Verde para Play */
+}
+
+.download-button {
+  background-color: #337ab7; /* Azul para Download */
+}
+
+.play-button:hover, .download-button:hover {
+  opacity: 0.85;
+}
 
 
-body { font-family: 'Segoe UI', sans-serif; background-color: #0d0d0d; color: #f0f0f0; line-height: 1.6; padding-bottom: 90px; position: relative; overflow-x: hidden; }
+/* Estilos para los títulos y artistas generados por api.js dentro de .music-info */
+.music-title {
+  font-size: 1.1rem;
+  font-weight: bold; /* Hacerlo negrita para destacar */
+  color: #333;
+  margin-bottom: 5px;
+}
 
-body::before { content: "PlayYoutubeDescargas by Wirk"; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-25deg); font-size: 18vw; font-weight: 900; font-style: italic; background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff0000); background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: moverTexto 10s ease infinite, brillar 2s ease-in-out infinite alternate; letter-spacing: 1vw; white-space: nowrap; pointer-events: none; z-index: 0; user-select: none; opacity: 0.1; }
+.music-artist {
+  font-size: 0.9rem;
+  color: #666;
+}
 
-@keyframes moverTexto { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+/* Reproductor de audio */
+#audio-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff; /* Fondo blanco */
+  color: #333;
+  padding: 10px;
+  border-top: 1px solid #ddd; /* Borde superior sutil */
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1); /* Sombra superior */
+  z-index: 100;
+  /* display: none; se controla por JS */
+}
 
-@keyframes brillar { 0% { opacity: 0.95; text-shadow: 0 0 10px rgba(255, 255, 255, 0.2); } 100% { opacity: 0.15; text-shadow: 0 0 20px rgba(255, 255, 255, 0.4); } }
-
-.container { max-width: 1200px; margin: auto; padding: 60px 20px; text-align: center; position: relative; z-index: 1; backdrop-filter: blur(0px); background: rgba(0, 0, 0, 0.0); border-radius: 0px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.0); }
-
-h1 { font-size: 3rem; margin-bottom: 30px; color: #ffffff; text-shadow: 0 0 10px #00f2ff, 0 0 20px #00f2ff; animation: vibrar 1s infinite alternate; }
-
-@keyframes vibrar { 0% { transform: translateX(-2px); } 100% { transform: translateX(2px); } }
-
-/* Encabezado */ .header { display: flex; justify-content: space-between; align-items: center; background-color: #111; padding: 20px; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1001; }
-
-.header h1 { font-size: 1.8rem; color: #e60023; margin: 0; }
-
-.menu-button { background-color: transparent; border: none; color: #fff; font-size: 28px; cursor: pointer; transition: transform 0.2s; }
-
-.menu-button:hover { transform: scale(1.2); }
-
-/* Menú lateral */ .side-menu { position: fixed; top: 0; right: -100%; height: 100%; width: 300px; background-color: #111; color: #fff; padding: 30px 20px; box-shadow: -4px 0 10px rgba(0, 0, 0, 0.5); transition: right 0.3s ease; z-index: 1002; overflow-y: auto; }
-
-.side-menu.open { right: 0; }
-
-.side-menu h2 { font-size: 24px; margin-bottom: 20px; color: #e60023; }
-
-.side-menu h3 { font-size: 18px; margin-top: 20px; color: #ccc; }
-
-.side-menu ul { list-style: none; padding-left: 0; font-size: 14px; }
-
-.side-menu li { margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 5px; color: #f0f0f0; }
-
-/* Botón cerrar menú */ .close-button { background-color: transparent; border: none; color: #fff; font-size: 22px; position: absolute; top: 15px; right: 20px; cursor: pointer; }
-
-.close-button:hover { color: #e60023; }
-
-/* Formulario */ form { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 30px; width: 100%; }
-
-@media (min-width: 600px) { form { flex-direction: row; justify-content: center; } }
-
-input[type="text"] { padding: 14px 20px; font-size: 16px; width: 100%; max-width: 400px; border-radius: 12px; border: none; background-color: #222; color: #fff; box-shadow: 0 0 0 2px #333; outline: none; transition: box-shadow 0.3s; }
-
-input[type="text"]:focus { box-shadow: 0 0 0 2px #e60023; }
-
-button { padding: 14px 30px; font-size: 16px; background-color: #e60023; color: white; border: none; border-radius: 12px; cursor: pointer; transition: background 0.3s, transform 0.2s; }
-
-button:hover { background-color: #cc001f; transform: scale(1.05); }
-
-/* Mensaje de carga */ .loading-message { color: #aaa; font-size: 18px; font-style: italic; margin-bottom: 20px; }
-
-/* Lista de música */ .music-list { display: grid; grid-template-columns: 1fr; gap: 25px; padding: 20px 0; }
-
-@media (min-width: 700px) { .music-list { grid-template-columns: 1fr 1fr; } }
-
-.music-card { background-color: #1a1a1a; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05); display: flex; flex-direction: column; align-items: center; gap: 15px; transition: transform 0.2s; text-align: center; }
-
-.music-card:hover { transform: scale(1.02); }
-
-.music-card img { width: 100%; max-width: 300px; height: auto; border-radius: 12px; object-fit: cover; }
-
-.music-info { width: 100%; }
-
-.music-title { font-size: 20px; font-weight: bold; color: #fff; margin-top: 10px; }
-
-.music-artist { font-size: 14px; color: #ccc; margin-top: 4px; }
-
-/* Botonera */ .button-container { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
-
-.play-button, .download-button { padding: 10px 20px; font-size: 14px; border-radius: 8px; cursor: pointer; transition: background 0.3s, color 0.3s; width: 80%; max-width: 250px; }
-
-.play-button { background-color: transparent; color: #e60023; border: 2px solid #e60023; }
-
-.play-button:hover { background-color: #e60023; color: #fff; }
-
-.download-button { background-color: #444; color: #fff; border: none; }
-
-.download-button:hover { background-color: #666; }
-
-/* Reproductor de audio fijo abajo */ #audio-player { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 800px; background-color: #000; padding: 12px 16px; border-top-left-radius: 12px; border-top-right-radius: 12px; box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4); z-index: 1000; display: flex; align-items: center; gap: 12px; }
-
-/* Estilo interno del control nativo (solo aplica en navegadores que lo permiten) */ #audio-player::-webkit-media-controls-panel { background-color: #0f0; border-radius: 12px; }
-
-/* Ocultar temporalmente si es necesario */ #audio-player.hidden { display: none; }
-
-#loading-message { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #111; padding: 30px; border-radius: 12px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); width: 250px; margin: 0 auto; text-align: center; position: relative; }
-
-.loader { display: flex; align-items: center; margin-left: 90px; /* mueve la rueda 50px a la derecha */ width: 60px; height: 60px; margin-bottom: 15px; } .loader span { position: absolute; width: 8px; height: 8px; background: #00f0ff; border-radius: 50%; animation: loaderAnim 1.2s linear infinite; }
-
-.loader span:nth-child(1) { transform: rotate(0deg) translate(25px); animation-delay: 0s; } .loader span:nth-child(2) { transform: rotate(30deg) translate(25px); animation-delay: 0.1s; } .loader span:nth-child(3) { transform: rotate(60deg) translate(25px); animation-delay: 0.2s; } .loader span:nth-child(4) { transform: rotate(90deg) translate(25px); animation-delay: 0.3s; } .loader span:nth-child(5) { transform: rotate(120deg) translate(25px); animation-delay: 0.4s; } .loader span:nth-child(6) { transform: rotate(150deg) translate(25px); animation-delay: 0.5s; } .loader span:nth-child(7) { transform: rotate(180deg) translate(25px); animation-delay: 0.6s; } .loader span:nth-child(8) { transform: rotate(210deg) translate(25px); animation-delay: 0.7s; } .loader span:nth-child(9) { transform: rotate(240deg) translate(25px); animation-delay: 0.8s; } .loader span:nth-child(10) { transform: rotate(270deg) translate(25px); animation-delay: 0.9s; } .loader span:nth-child(11) { transform: rotate(300deg) translate(25px); animation-delay: 1s; } .loader span:nth-child(12) { transform: rotate(330deg) translate(25px); animation-delay: 1.1s; }
-
-@keyframes loaderAnim { 0% { opacity: 1; } 100% { opacity: 0; } }
-
-#loading-text { color: #00f0ff; font-weight: bold; font-size: 16px; text-align: center; }
+/* Adaptable para pantallas pequeñas - formulario */
+@media (min-width: 600px) {
+  #search-form {
+    flex-direction: row;
+  }
+}
